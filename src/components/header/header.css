@@ -1,24 +1,31 @@
 .header {
-    background-color: #1e2d3b;
+    background-color: rgba(30, 45, 59, 0.5);
+    backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 100;
-    height: 100px;
-    transition: height 0.3s ease;
+    height: 90px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
 }
 
+/* Блок логотипа с мягким градиентом или аккуратной плашкой */
 .header__logo-wrapper {
-    background-color: #edcd1f;
+    background: linear-gradient(135deg, #edcd1f 0%, #e2c113 100%);
     height: 100%;
-    min-width: 385px;
+    min-width: 340px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-right: 80px;
+    padding-right: 60px;
     padding-left: 20px;
     flex-shrink: 0;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
     transition: all 0.3s ease;
 }
 
@@ -28,10 +35,10 @@
 }
 
 .header__logo img {
-    height: 90px;
+    height: 75px;
     width: auto;
     object-fit: contain;
-    transition: height 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .header__container {
@@ -58,22 +65,37 @@
     list-style: none;
 }
 
+/* Ссылки меню с эффектом подчеркивания */
 .header__link {
     color: #ffffff;
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    transition: color 0.2s ease;
+    position: relative;
     padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+/* Красивая линия-подчеркивание при наведении */
+.header__link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #edcd1f;
+    transition: width 0.3s ease;
+}
+
+.header__link:hover::after,
+.header__link--active::after {
+    width: 100%;
 }
 
 .header__link:hover {
     color: #edcd1f;
-}
-
-.header__link--active {
-    color: #ffffff;
 }
 
 .header__burger {

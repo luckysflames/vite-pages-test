@@ -67,6 +67,35 @@ video {
 }
 
 /* ==========================================================================
+   GLOBAL STICKY VIDEO BACKGROUND
+   ========================================================================== */
+
+.global-video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.global-video-bg__element {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Затемняющая вуаль для читаемости текста */
+.global-video-bg__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    backdrop-filter: brightness(0.9) contrast(1.05);
+}
+
+/* ==========================================================================
    SECTION TITLE COMPONENT (Переиспользуемый заголовок секций)
    ========================================================================== */
 
@@ -81,10 +110,14 @@ video {
 .section-title {
     font-size: clamp(32px, 4vw, 48px);
     font-weight: 400;
-    color: #c6c6c6;
+    color: #aeaeae;
     letter-spacing: 3px;
     text-transform: uppercase;
     margin-bottom: 12px;
+}
+
+.section-title__white {
+    color: #ffffff;
 }
 
 .section-underline {

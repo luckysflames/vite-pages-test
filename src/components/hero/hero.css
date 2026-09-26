@@ -1,8 +1,7 @@
 .hero {
     position: relative;
     width: 100%;
-    /* svh предотвращает скачки высоты при появлении/скрытии адресной строки на мобильных браузерах */
-    height: calc(100svh - 100px);
+    height: 100svh;
     min-height: 480px;
     display: flex;
     align-items: center;
@@ -10,38 +9,7 @@
     overflow: hidden;
     color: #ffffff;
     text-align: center;
-    /* Ограничивает область видимости fixed-видео пределами секции */
     clip-path: inset(0 0 0 0);
-}
-
-.hero__video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.hero__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.05);
-
-    /* Шахматный паттерн 2x2px поверх видео для маскировки сжатия и улучшения читаемости текста */
-    background-image: conic-gradient(
-        rgba(0, 0, 0, 0.2) 90deg,
-        transparent 90deg 180deg,
-        rgba(0, 0, 0, 0.2) 180deg 270deg,
-        transparent 270deg
-    );
-    background-size: 2px 2px;
-    z-index: 2;
 }
 
 .hero__container {
@@ -53,6 +21,8 @@
     justify-content: center;
     width: 100%;
     padding: 0 20px;
+    /* Анимация появления контента при загрузке страницы */
+    animation: heroEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .hero__title {
@@ -61,6 +31,7 @@
     line-height: 1.2;
     margin-bottom: 15px;
     letter-spacing: 0.5px;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .hero__subtitle {
@@ -68,7 +39,8 @@
     color: #edcd1f;
     font-weight: 400;
     margin-bottom: 40px;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .hero__arrow {
@@ -76,17 +48,34 @@
     align-items: center;
     justify-content: center;
     padding: 10px;
-    transition: transform 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
     animation: bounce 2s infinite;
+    opacity: 0.8;
+}
+
+.hero__arrow:hover {
+    transform: translateY(5px);
+    opacity: 1;
 }
 
 .hero__arrow svg {
     width: clamp(35px, 5vw, 55px);
     height: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-.hero__arrow:hover {
-    transform: translateY(5px);
+/* Ключевые кадры для входа Hero-секции */
+@keyframes heroEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes bounce {
@@ -121,7 +110,6 @@
         min-height: 420px;
     }
 
-    /* Отключаем fixed-позиционирование видео на мобильных устройствах для экономии ресурсов и экономной батареи */
     .hero__video {
         position: absolute;
         height: 100%;

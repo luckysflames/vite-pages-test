@@ -1,9 +1,9 @@
 /* ==========================================================================
-   CLIENTS SECTION
+   CLIENTS SECTION (SCROLL REVEAL ANIMATION)
    ========================================================================== */
 
 .clients {
-    padding: 60px 0;
+    padding: 90px 0;
     background-color: #f7f5f5;
 }
 
@@ -12,14 +12,50 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: clamp(30px, 6vw, 60px);
+    gap: 30px;
 }
 
+/* Изначальное скрытое состояние карточек до скролла */
 .clients__item {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 30px 45px;
+    min-width: 240px;
+    height: 120px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+
+    /* Настройки анимации появления */
+    opacity: 0;
+    transform: translateY(35px);
+    transition:
+        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* Каскадная задержка (stagger) для каждой карточки */
+.clients__item:nth-child(1) {
+    transition-delay: 0.1s;
+}
+.clients__item:nth-child(2) {
+    transition-delay: 0.2s;
+}
+.clients__item:nth-child(3) {
+    transition-delay: 0.3s;
+}
+.clients__item:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+/* Состояние, когда секция доскроллена (добавляется через JS) */
+.clients.is-visible .clients__item {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .clients__link {
@@ -27,36 +63,55 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
+    width: 100%;
+    height: 100%;
 }
 
 .clients__logo {
-    max-width: 130px;
+    max-width: 150px;
     height: auto;
-    max-height: 70px;
+    max-height: 55px;
     object-fit: contain;
-    transition:
-        transform 0.3s ease,
-        opacity 0.3s ease;
-    opacity: 0.9;
-    cursor: pointer;
+    opacity: 0.85;
 }
 
-.clients__logo:hover {
-    transform: scale(1.05);
-    opacity: 1;
+/* Легкий покой на ПК (без назойливых прыжков) */
+@media (hover: hover) and (pointer: fine) {
+    .clients__item:hover {
+        border-color: rgba(237, 205, 31, 0.5);
+        box-shadow: 0 8px 25px rgba(30, 45, 59, 0.06);
+    }
 }
 
 /* ==========================================================================
    BREAKPOINTS
    ========================================================================== */
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .clients {
-        padding: 45px 0;
+        padding: 70px 0;
     }
-
+    .clients__item {
+        min-width: 200px;
+        height: 100px;
+        padding: 20px 30px;
+    }
     .clients__logo {
         max-width: 130px;
-        max-height: 40px;
+        max-height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .clients {
+        padding: 50px 0;
+    }
+    .clients__logos {
+        gap: 20px;
+    }
+    .clients__item {
+        width: 100%;
+        max-width: 320px;
+        height: 90px;
     }
 }

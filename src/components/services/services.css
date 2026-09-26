@@ -3,8 +3,9 @@
    ========================================================================== */
 
 .services {
-    padding: 60px 0;
-    background-color: #ffffff;
+    padding: 90px 0;
+    /* background-color: #f8f9fa; */
+    background-color: transparent;
 }
 
 /* Сетка карточек */
@@ -15,65 +16,77 @@
 }
 
 /* ==========================================================================
-   SERVICE CARD COMPONENT
+   SERVICE CARD COMPONENT (PREMIUM)
    ========================================================================== */
 
 .service-card {
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
     height: 100%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    /* Премиальная рассеянная тень вместо простой рамки */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.03);
     transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
 }
 
 .service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-8px); /* Чуть выше подъем для вау-эффекта */
+    box-shadow: 0 20px 40px rgba(30, 45, 59, 0.08); /* Глубокая дорогая тень */
+}
+
+.service-card:hover::before {
+    opacity: 1;
 }
 
 .service-card__image-wrapper {
     width: 100%;
     aspect-ratio: 16 / 10;
     overflow: hidden;
-    background-color: #e0e0e0;
+    background-color: #e9ecef;
+    position: relative;
 }
 
 .service-card__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .service-card:hover .service-card__image {
-    transform: scale(1.05);
+    transform: scale(1.06); /* Плавный кинематографический зум */
 }
 
 .service-card__content {
     display: flex;
     flex-direction: column;
-    padding: 25px 20px 30px;
+    padding: 30px 25px 35px;
     flex-grow: 1;
 }
 
 .service-card__title {
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 600;
     color: #1e2d3b;
-    line-height: 1.3;
-    margin-bottom: 15px;
+    line-height: 1.35;
+    margin-bottom: 12px;
+    transition: color 0.2s ease;
+}
+
+.service-card:hover .service-card__title {
+    color: #bfa110; /* Чуть темнее фирменный желтый для подсветки заголовка */
 }
 
 .service-card__description {
-    font-size: 13px;
-    color: #555555;
-    line-height: 1.6;
+    font-size: 14px;
+    color: #5c6b73; /* Мягкий, приятный для чтения оттенок серого */
+    line-height: 1.65;
 }
 
 /* ==========================================================================
@@ -81,6 +94,9 @@
    ========================================================================== */
 
 @media (max-width: 992px) {
+    .services {
+        padding: 70px 0;
+    }
     .services__grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 24px;
@@ -89,7 +105,7 @@
 
 @media (max-width: 600px) {
     .services {
-        padding: 45px 0;
+        padding: 50px 0;
     }
 
     .services__grid {
@@ -98,6 +114,6 @@
     }
 
     .service-card__content {
-        padding: 20px;
+        padding: 24px 20px 28px;
     }
 }

@@ -1,85 +1,129 @@
 /* ==========================================================================
-   Project Detail Component (Основная страница и 9-й объект)
+   Project Detail Component - Enhanced UX & Styles
    ========================================================================== */
+
+/* Хлебные крошки */
+.project-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #666666;
+    margin-bottom: 20px;
+}
+
+.project-breadcrumbs a {
+    color: #1e2d3b;
+    transition: color 0.2s ease;
+}
+
+.project-breadcrumbs a:hover {
+    color: #edcd1f;
+}
+
+.breadcrumbs-current {
+    color: #888888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+}
 
 /* Скрываем заголовок и контент до полной загрузки данных */
 .section-header,
 .project-detail__content {
     opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+    transform: translateY(10px);
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
 }
 
-/* Проявляем при готовности данных */
 .section-header.is-loaded,
 .project-detail__content.is-loaded {
     opacity: 1;
+    transform: translateY(0);
 }
 
 .project-detail {
-    padding: 30px 0 50px;
+    padding: 20px 0 60px;
+    margin-top: 80px;
     background-color: #ffffff;
     color: #333333;
 }
 
-/* ==========================================================================
-   1. Стандартная сетка проектов (1-8 объекты)
-   ========================================================================== */
-
+/* Сетка контента */
 .project-detail__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 48px;
+    gap: 50px;
     align-items: start;
 }
 
-/* Текстовый блок */
+/* Текстовые блоки */
 .project-detail__address {
-    font-size: clamp(14px, 1.5vw, 16px);
-    margin-bottom: 16px;
-    color: #222222;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    margin-bottom: 20px;
+    color: #1e2d3b;
+}
+
+.project-detail__address svg {
+    color: #edcd1f;
+    flex-shrink: 0;
 }
 
 .project-detail__text p {
-    font-size: clamp(13px, 1.2vw, 14.5px);
-    line-height: 1.65;
+    font-size: 15px;
+    line-height: 1.7;
     color: #444444;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     white-space: pre-line;
 }
 
 .project-detail__features h4 {
-    font-size: clamp(14px, 1.3vw, 16px);
+    font-size: 16px;
     font-weight: 700;
-    margin-bottom: 12px;
-    color: #222222;
+    margin-bottom: 14px;
+    color: #1e2d3b;
 }
 
 .project-detail__features ul {
     list-style: none;
     padding: 0;
-    margin: 0 0 20px 0;
+    margin: 0 0 25px 0;
 }
 
 .project-detail__features li {
-    font-size: clamp(13px, 1.1vw, 14px);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
     line-height: 1.55;
     color: #444444;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+}
+
+.project-detail__features li span {
+    color: #2e7d32; /* Зеленая галочка */
+    font-weight: bold;
 }
 
 .project-detail__dates {
-    font-size: clamp(13px, 1.1vw, 14px);
+    font-size: 14px;
     line-height: 1.6;
     color: #333333;
-    margin-bottom: 25px;
-    padding: 12px 16px;
-    background-color: #f9f9f9;
-    border-left: 3px solid #edcd1f;
-    border-radius: 0 4px 4px 0;
+    margin-bottom: 30px;
+    padding: 16px 20px;
+    background-color: #f8f9fa;
+    border-left: 4px solid #edcd1f;
+    border-radius: 0 6px 6px 0;
 }
 
 .project-detail__dates p {
-    margin: 3px 0;
+    margin: 4px 0;
 }
 
 /* Кнопка возврата */
@@ -87,32 +131,36 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 44px;
-    padding: 10px 24px;
+    min-height: 48px;
+    padding: 12px 28px;
     background-color: #1e2d3b;
     color: #ffffff;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     text-decoration: none;
     letter-spacing: 0.5px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     transition:
         background-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.1s ease;
+        transform 0.1s ease,
+        box-shadow 0.2s ease;
+}
+
+.project-detail__back-btn:hover {
+    background-color: #283a4c;
+    box-shadow: 0 4px 12px rgba(30, 45, 59, 0.2);
 }
 
 .project-detail__back-btn:active {
     transform: scale(0.98);
 }
 
-/* Галерея (Слайдер) */
+/* Галерея и слайдер */
 .project-detail__gallery {
     position: sticky;
-    top: 120px;
-    width: 100%;
+    top: 100px;
     min-width: 100%;
     max-width: 560px;
     justify-self: stretch;
@@ -124,16 +172,18 @@
     display: flex;
     align-items: center;
     width: 100%;
-    border-radius: 6px;
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    background-color: #1e2d3b;
 }
 
 .project-detail__main-wrapper {
+    position: relative;
     width: 100%;
     aspect-ratio: 4 / 3;
     overflow: hidden;
-    background-color: #1e2d3b;
+    cursor: zoom-in;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,8 +192,41 @@
 .project-detail__main-wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     display: block;
+}
+
+/* Подсказка "Клик для увеличения" при наведении */
+.zoom-hint {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    padding: 6px 10px;
+    font-size: 11px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.project-detail__main-wrapper:hover .zoom-hint {
+    opacity: 1;
+}
+
+/* Счетчик фотографий */
+.gallery-counter {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
 }
 
 .gallery-fade-img {
@@ -151,17 +234,17 @@
     transition: opacity 0.25s ease-in-out;
 }
 
-/* Кнопки навигации галереи */
+/* Навигация слайдера */
 .project-detail__nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.5);
     color: #ffffff;
     border: none;
-    font-size: 20px;
-    width: 40px;
-    height: 48px;
+    font-size: 18px;
+    width: 44px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -170,32 +253,36 @@
     transition: background-color 0.2s ease;
 }
 
+.project-detail__nav:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
 .project-detail__nav--prev {
     left: 0;
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 6px 6px 0;
 }
 
 .project-detail__nav--next {
     right: 0;
-    border-radius: 4px 0 0 4px;
+    border-radius: 6px 0 0 6px;
 }
 
-/* Превью-миниатюры */
+/* Миниатюры */
 .project-detail__thumbs {
     display: flex;
-    gap: 8px;
-    margin-top: 10px;
+    gap: 10px;
+    margin-top: 12px;
     overflow-x: auto;
-    padding-bottom: 4px;
+    padding-bottom: 6px;
     scrollbar-width: thin;
 }
 
 .project-detail__thumb {
-    flex: 0 0 64px;
-    height: 64px;
+    flex: 0 0 72px;
+    height: 72px;
     padding: 0;
     border: 2px solid transparent;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     background: none;
     overflow: hidden;
@@ -215,14 +302,103 @@
     border-color: #edcd1f;
 }
 
+.project-detail__thumb:not(.is-active):hover {
+    opacity: 0.8;
+}
+
 /* ==========================================================================
-   2. Уникальный шаблон для 9-го объекта (Реализованные проекты)
+   LightBox Модальное окно
+   ========================================================================== */
+
+.project-lightbox {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.project-lightbox.is-active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-content {
+    max-width: 90vw;
+    max-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 40px;
+    cursor: pointer;
+    z-index: 10;
+    transition: color 0.2s ease;
+}
+
+.lightbox-close:hover {
+    color: #edcd1f;
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: none;
+    font-size: 24px;
+    width: 50px;
+    height: 60px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.lightbox-nav--prev {
+    left: 20px;
+}
+
+.lightbox-nav--next {
+    right: 20px;
+}
+
+/* ==========================================================================
+   Шахматный список для 9-го объекта (Карточки)
    ========================================================================== */
 
 .project-detail__completed-list {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 40px; /* Расстояние между карточками */
     max-width: 1100px;
     margin: 0 auto;
 }
@@ -231,12 +407,31 @@
     display: flex;
     align-items: center;
     gap: 40px;
+    background-color: #eeeeee; /* Легкий контрастный фон карточки */
+    border-radius: 12px;
+    padding: 30px; /* Воздух внутри карточки */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03); /* Мягкая тень */
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* Эффект при наведении на десктопах */
+@media (hover: hover) and (pointer: fine) {
+    .completed-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+}
+
+.completed-item:nth-child(even) {
+    flex-direction: row-reverse;
 }
 
 .completed-item__text {
     flex: 1;
-    font-size: 16px;
-    line-height: 1.65;
+    font-size: 15px;
+    line-height: 1.7;
     color: #333333;
     white-space: pre-line;
 }
@@ -244,64 +439,39 @@
 .completed-item__image-wrapper {
     flex: 1.2;
     width: 100%;
-    height: 320px; /* Фиксированная высота для одинакового размера всех картинок */
+    height: 340px;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    background-color: #f0f0f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    background-color: #e5e5e5;
 }
 
 .completed-item__image-wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Обрезает картинки под единую высоту без искажения пропорций */
+    object-fit: cover;
     display: block;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
 }
 
 /* ==========================================================================
-   3. Media Queries (Адаптивность)
+   Media Queries (Адаптивность)
    ========================================================================== */
 
-/* Планшеты и ПК без сенсора (ховеры) */
-@media (hover: hover) and (pointer: fine) {
-    .project-detail__back-btn:hover {
-        background-color: #edcd1f;
-        color: #1e2d3b;
-    }
-
-    .project-detail__nav:hover {
-        background: rgba(0, 0, 0, 0.7);
-    }
-
-    .project-detail__thumb:not(.is-active):hover {
-        opacity: 0.8;
-    }
-
-    .completed-item__image-wrapper:hover img {
-        transform: scale(1.03);
-    }
-}
-
-/* Планшеты (≤ 992px) */
 @media (max-width: 992px) {
     .project-detail__grid {
-        gap: 24px;
+        gap: 30px;
     }
-
     .project-detail__gallery {
         position: static;
     }
 }
 
-/* Мобильные устройства (≤ 768px) */
 @media (max-width: 768px) {
     .project-detail {
-        padding: 20px 0 40px;
-        overflow-x: hidden;
+        padding: 10px 0 40px;
     }
 
-    /* Сетка 1-8 объектов */
     .project-detail__grid {
         grid-template-columns: 100%;
         gap: 20px;
@@ -309,50 +479,34 @@
 
     .project-detail__gallery {
         order: -1;
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
     }
 
     .project-detail__main-wrapper {
         aspect-ratio: 16 / 9;
-        max-height: 260px;
-    }
-
-    .project-detail__info {
-        order: 1;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .project-detail__text p {
-        word-break: break-word;
-    }
-
-    .project-detail__nav {
-        width: 32px;
-        height: 38px;
-        font-size: 14px;
-    }
-
-    .project-detail__thumb {
-        flex: 0 0 48px;
-        height: 48px;
+        max-height: 280px;
     }
 
     .project-detail__back-btn {
         width: 100%;
-        box-sizing: border-box;
     }
 
-    /* 9-й объект на мобилках: всегда текст сверху, картинка снизу */
+    /* На мобилках карточки становятся компактнее по отступам */
     .completed-item,
     .completed-item:nth-child(even) {
         flex-direction: column;
         gap: 20px;
+        padding: 20px; /* Меньше паддинг на узких экранах */
+        border-radius: 10px;
     }
 
     .completed-item__image-wrapper {
-        height: 240px; /* Чуть компактнее на маленьких экранах */
+        height: 220px;
+        width: 100%;
+    }
+
+    .lightbox-nav {
+        width: 40px;
+        height: 50px;
+        font-size: 18px;
     }
 }

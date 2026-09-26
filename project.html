@@ -13,6 +13,15 @@
         <main class="main">
             <section class="project-detail" id="project-detail">
                 <div class="container">
+                    <!-- Хлебные крошки для удобной навигации -->
+                    <nav class="project-breadcrumbs" aria-label="Хлебные крошки">
+                        <a href="/#projects">Проекты</a>
+                        <span class="breadcrumbs-separator">/</span>
+                        <span class="breadcrumbs-current" id="breadcrumb-title"
+                            >Детали проекта</span
+                        >
+                    </nav>
+
                     <header class="section-header">
                         <h1 class="section-title" id="project-title">ПРОЕКТ</h1>
                         <div class="section-underline" aria-hidden="true"></div>
@@ -22,6 +31,20 @@
                 </div>
             </section>
         </main>
+
+        <!-- Модальное окно (Lightbox) для увеличенного просмотра фото -->
+        <div class="project-lightbox" id="project-lightbox" aria-hidden="true">
+            <button class="lightbox-close" aria-label="Закрыть">&times;</button>
+            <button class="lightbox-nav lightbox-nav--prev" aria-label="Предыдущее фото">
+                &#10094;
+            </button>
+            <div class="lightbox-content">
+                <img src="" alt="Увеличенное фото проекта" id="lightbox-img" />
+            </div>
+            <button class="lightbox-nav lightbox-nav--next" aria-label="Следующее фото">
+                &#10095;
+            </button>
+        </div>
 
         <load src="./src/components/footer/footer.html" />
     </body>

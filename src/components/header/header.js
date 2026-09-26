@@ -26,3 +26,71 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+export function initScrollSpy() {
+    const path = window.location.pathname;
+    const navLinks = document.querySelectorAll(".header__link");
+
+    // 1. Защита для подстраниц: если мы не на главной, полностью убираем все активные подсветки
+    if (path !== "/" && path !== "/index.html" && path !== "") {
+        navLinks.forEach((link) => {
+            link.classList.remove("header__link--active");
+        });
+        return; // Выходим, дальше логика главной страницы не нужна
+    }
+
+    // 2. Логика для главной страницы
+    const sections = document.querySelectorAll("section[id], main > section");
+    if (!sections.length || !navLinks.length) return;
+
+    const updateActiveSection = () => {
+        let currentActiveId = null;
+        const scrollPosition = window.scrollY + window.innerHeight * 0.3; // Точка фокуса (30% от верха экрана)
+
+        sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                currentActiveId = section.getAttribute("id");
+            }
+        });
+
+        // Если скролл в самом верху (hero)
+        if (window.scrollY < 100) {
+            currentActiveId = "hero";
+        }
+
+        if (currentActiveId) {
+            navLinks.forEach((link) => {
+                link.classList.remove("header__link--active");
+                const href = link.getAttribute("href");
+                if (
+                    href === `/#${currentActiveId}` ||
+                    (currentActiveId === "hero" && (href === "/" || href === "/#hero"))
+                ) {
+                    link.classList.add("header__link--active");
+                }
+            });
+        }
+    };
+
+    // Слушаем скролл с оптимизацией через requestAnimationFrame
+    let ticking = false;
+    window.addEventListener(
+        "scroll",
+        () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateActiveSection();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        },
+        { passive: true },
+    );
+
+    // Первичный запуск при загрузке
+    updateActiveSection();
+}

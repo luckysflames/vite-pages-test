@@ -4,6 +4,8 @@ export function initProjectDetail() {
     const headerEl = document.querySelector(".section-header");
     const titleEl = document.getElementById("project-title");
     const contentEl = document.getElementById("project-content");
+    const breadcrumbTitle = document.getElementById("breadcrumb-title");
+
     if (!contentEl) return;
 
     const params = new URLSearchParams(window.location.search);
@@ -14,6 +16,7 @@ export function initProjectDetail() {
     if (titleEl) {
         titleEl.textContent = project.title;
         document.title = `${project.title} — ООО «РСК»`;
+        if (breadcrumbTitle) breadcrumbTitle.textContent = project.title;
     }
 
     // === СПЕЦИАЛЬНЫЙ ШАБЛОН ДЛЯ 9-ГО ОБЪЕКТА ===
@@ -37,7 +40,7 @@ export function initProjectDetail() {
                     )
                     .join("")}
                 
-                <div style="margin-top: 40px;">
+                <div style="margin-top: 40px; text-align: center;">
                     <a href="/#projects" class="project-detail__back-btn">НАЗАД К ПРОЕКТАМ</a>
                 </div>
             </div>
@@ -54,7 +57,7 @@ export function initProjectDetail() {
     contentEl.innerHTML = `
         <div class="project-detail__grid">
             <div class="project-detail__info">
-                ${project.address ? `<p class="project-detail__address"><strong>${project.address}</strong></p>` : ""}
+                ${project.address ? `<p class="project-detail__address"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> <strong>${project.address}</strong></p>` : ""}
                 
                 ${
                     project.description
@@ -70,9 +73,9 @@ export function initProjectDetail() {
                     project.features && project.features.length
                         ? `
                     <div class="project-detail__features">
-                        <h4>Ключевые особенности ${project.title}</h4>
+                        <h4>Ключевые особенности</h4>
                         <ul>
-                            ${project.features.map((item) => `<li>- ${item}</li>`).join("")}
+                            ${project.features.map((item) => `<li><span>✓</span> ${item}</li>`).join("")}
                         </ul>
                     </div>
                 `
@@ -83,9 +86,9 @@ export function initProjectDetail() {
                     project.dates
                         ? `
                     <div class="project-detail__dates">
-                        <p><strong>Сроки строительства:</strong></p>
-                        <p>Начало строительства: ${project.dates.start}</p>
-                        <p>Окончание строительства: ${project.dates.end}</p>
+                        <p><strong>Сроки реализации:</strong></p>
+                        <p>Начало: ${project.dates.start}</p>
+                        <p>Окончание: ${project.dates.end}</p>
                     </div>
                 `
                         : ""
@@ -101,8 +104,10 @@ export function initProjectDetail() {
                             ? `<button class="project-detail__nav project-detail__nav--prev" aria-label="Назад">&#10094;</button>`
                             : ""
                     }
-                    <div class="project-detail__main-wrapper">
+                    <div class="project-detail__main-wrapper" title="Нажмите, чтобы увеличить">
                         <img src="${gallery[0]}" alt="${project.title}" id="gallery-main-img" class="gallery-fade-img" />
+                        ${gallery.length > 1 ? `<span class="gallery-counter" id="gallery-counter">1 / ${gallery.length}</span>` : ""}
+                        <div class="zoom-hint">Клик для увеличения</div>
                     </div>
                     ${
                         gallery.length > 1
@@ -132,38 +137,40 @@ export function initProjectDetail() {
         </div>
     `;
 
-    // Логика слайдера и автопрокрутки
+    // Логика слайдера, автопрокрутки и Lightbox
     let currentIndex = 0;
     let autoPlayTimer = null;
     const mainImg = document.getElementById("gallery-main-img");
+    const counterEl = document.getElementById("gallery-counter");
     const sliderContainer = contentEl.querySelector(".project-detail__slider");
     const prevBtn = contentEl.querySelector(".project-detail__nav--prev");
     const nextBtn = contentEl.querySelector(".project-detail__nav--next");
     const thumbs = contentEl.querySelectorAll(".project-detail__thumb");
 
+    // Lightbox элементы
+    const lightbox = document.getElementById("project-lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxClose = lightbox.querySelector(".lightbox-close");
+    const lightboxPrev = lightbox.querySelector(".lightbox-nav--prev");
+    const lightboxNext = lightbox.querySelector(".lightbox-nav--next");
+
     function updateGallery(index) {
         if (!mainImg) return;
 
-        // Плавное затухание текущей картинки
         mainImg.style.opacity = "0";
 
         setTimeout(() => {
             currentIndex = (index + gallery.length) % gallery.length;
             mainImg.src = gallery[currentIndex];
+            if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${gallery.length}`;
             thumbs.forEach((t, i) => t.classList.toggle("is-active", i === currentIndex));
-
-            // Плавное появление новой картинки
             mainImg.style.opacity = "1";
         }, 150);
     }
 
-    // Функции автопрокрутки
     function startAutoPlay() {
         if (gallery.length <= 1) return;
-
-        // Предотвращаем создание нескольких интервалов сразу
         stopAutoPlay();
-
         autoPlayTimer = setInterval(() => {
             updateGallery(currentIndex + 1);
         }, 4000);
@@ -177,9 +184,9 @@ export function initProjectDetail() {
     }
 
     function handleUserInteraction(action) {
-        stopAutoPlay(); // Сначала полностью гасим старый таймер
-        action(); // Выполняем переход (клик на стрелку/миниатюру)
-        startAutoPlay(); // Запускаем свежий отсчет заново
+        stopAutoPlay();
+        action();
+        startAutoPlay();
     }
 
     if (prevBtn) {
@@ -198,12 +205,42 @@ export function initProjectDetail() {
     });
 
     if (gallery.length > 1 && sliderContainer) {
-        // Пауза при наведении мыши
         sliderContainer.addEventListener("mouseenter", stopAutoPlay);
         sliderContainer.addEventListener("mouseleave", startAutoPlay);
-
-        // Запускаем автопрокрутку при старте
         startAutoPlay();
+    }
+
+    // Lightbox функционал по клику на главное фото
+    if (mainImg && lightbox) {
+        mainImg.addEventListener("click", () => {
+            stopAutoPlay();
+            lightboxImg.src = gallery[currentIndex];
+            lightbox.classList.add("is-active");
+            document.body.classList.add("no-scroll");
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove("is-active");
+            document.body.classList.remove("no-scroll");
+            startAutoPlay();
+        };
+
+        lightboxClose.addEventListener("click", closeLightbox);
+        lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        lightboxPrev.addEventListener("click", () => {
+            currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
+            lightboxImg.src = gallery[currentIndex];
+            updateGallery(currentIndex);
+        });
+
+        lightboxNext.addEventListener("click", () => {
+            currentIndex = (currentIndex + 1) % gallery.length;
+            lightboxImg.src = gallery[currentIndex];
+            updateGallery(currentIndex);
+        });
     }
 
     if (headerEl) headerEl.classList.add("is-loaded");

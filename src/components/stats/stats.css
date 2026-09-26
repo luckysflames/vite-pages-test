@@ -23,7 +23,7 @@
 }
 
 /* Небольшая задержка для второго элемента, чтобы они шли каскадом */
-.stats.is-visible .stats__item:nth-child(3) {
+.stats.is-visible .stats__item:last-child {
     transition-delay: 0.15s;
 }
 
