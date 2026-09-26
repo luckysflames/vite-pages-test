@@ -1,0 +1,107 @@
+/* Базовое состояние элементов статистики до появления */
+.stats__item {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+        opacity 0.8s ease-out,
+        transform 0.8s ease-out;
+}
+
+/* Разделитель тоже может красиво проявляться */
+.stats__divider {
+    opacity: 0;
+    transform: scaleY(0);
+    transition:
+        opacity 0.6s ease-out 0.2s,
+        transform 0.6s ease-out 0.2s;
+}
+
+/* Состояние, когда блок появился на экране */
+.stats.is-visible .stats__item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Небольшая задержка для второго элемента, чтобы они шли каскадом */
+.stats.is-visible .stats__item:nth-child(3) {
+    transition-delay: 0.15s;
+}
+
+.stats.is-visible .stats__divider {
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+.stats {
+    background-color: #edcd1f;
+    padding: 60px 0;
+}
+
+.stats__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+}
+
+.stats__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.stats__number {
+    font-size: clamp(40px, 5vw, 58px);
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 8px;
+}
+
+.stats__text {
+    font-size: clamp(20px, 1.5vw, 22px);
+    font-weight: 700;
+    color: #3d5975;
+    line-height: 1.25;
+}
+
+/* Вертикальный разделитель между цифрами */
+.stats__divider {
+    width: 2px;
+    height: 80px;
+    background-color: #ffffff;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   BREAKPOINTS
+   ========================================================================== */
+
+@media (max-width: 576px) {
+    .stats {
+        padding: 30px 0;
+    }
+
+    .stats__container {
+        gap: 30px;
+    }
+
+    .stats__divider {
+        height: 50px;
+    }
+}
+
+/* Для совсем узких экранов (меньше 360px) перестраиваем в колонку */
+@media (max-width: 360px) {
+    .stats__container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* На мобильных заменяем вертикальную линию на горизонтальную */
+    .stats__divider {
+        width: 60px;
+        height: 2px;
+    }
+}

@@ -1,0 +1,62 @@
+/* ==========================================================================
+   CLIENTS SECTION
+   ========================================================================== */
+
+.clients {
+    padding: 60px 0;
+    background-color: #f7f5f5;
+}
+
+.clients__logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(30px, 6vw, 60px);
+}
+
+.clients__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.clients__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.clients__logo {
+    max-width: 130px;
+    height: auto;
+    max-height: 70px;
+    object-fit: contain;
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.clients__logo:hover {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+/* ==========================================================================
+   BREAKPOINTS
+   ========================================================================== */
+
+@media (max-width: 600px) {
+    .clients {
+        padding: 45px 0;
+    }
+
+    .clients__logo {
+        max-width: 130px;
+        max-height: 40px;
+    }
+}

@@ -1,0 +1,103 @@
+/* ==========================================================================
+   SERVICES SECTION
+   ========================================================================== */
+
+.services {
+    padding: 60px 0;
+    background-color: #ffffff;
+}
+
+/* Сетка карточек */
+.services__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* ==========================================================================
+   SERVICE CARD COMPONENT
+   ========================================================================== */
+
+.service-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.service-card__image-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background-color: #e0e0e0;
+}
+
+.service-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-card__image {
+    transform: scale(1.05);
+}
+
+.service-card__content {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 20px 30px;
+    flex-grow: 1;
+}
+
+.service-card__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e2d3b;
+    line-height: 1.3;
+    margin-bottom: 15px;
+}
+
+.service-card__description {
+    font-size: 13px;
+    color: #555555;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   BREAKPOINTS
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    .services__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .services {
+        padding: 45px 0;
+    }
+
+    .services__grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .service-card__content {
+        padding: 20px;
+    }
+}

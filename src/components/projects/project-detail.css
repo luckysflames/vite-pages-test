@@ -1,0 +1,358 @@
+/* ==========================================================================
+   Project Detail Component (Основная страница и 9-й объект)
+   ========================================================================== */
+
+/* Скрываем заголовок и контент до полной загрузки данных */
+.section-header,
+.project-detail__content {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Проявляем при готовности данных */
+.section-header.is-loaded,
+.project-detail__content.is-loaded {
+    opacity: 1;
+}
+
+.project-detail {
+    padding: 30px 0 50px;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+/* ==========================================================================
+   1. Стандартная сетка проектов (1-8 объекты)
+   ========================================================================== */
+
+.project-detail__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+}
+
+/* Текстовый блок */
+.project-detail__address {
+    font-size: clamp(14px, 1.5vw, 16px);
+    margin-bottom: 16px;
+    color: #222222;
+}
+
+.project-detail__text p {
+    font-size: clamp(13px, 1.2vw, 14.5px);
+    line-height: 1.65;
+    color: #444444;
+    margin-bottom: 20px;
+    white-space: pre-line;
+}
+
+.project-detail__features h4 {
+    font-size: clamp(14px, 1.3vw, 16px);
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #222222;
+}
+
+.project-detail__features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.project-detail__features li {
+    font-size: clamp(13px, 1.1vw, 14px);
+    line-height: 1.55;
+    color: #444444;
+    margin-bottom: 6px;
+}
+
+.project-detail__dates {
+    font-size: clamp(13px, 1.1vw, 14px);
+    line-height: 1.6;
+    color: #333333;
+    margin-bottom: 25px;
+    padding: 12px 16px;
+    background-color: #f9f9f9;
+    border-left: 3px solid #edcd1f;
+    border-radius: 0 4px 4px 0;
+}
+
+.project-detail__dates p {
+    margin: 3px 0;
+}
+
+/* Кнопка возврата */
+.project-detail__back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 24px;
+    background-color: #1e2d3b;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.project-detail__back-btn:active {
+    transform: scale(0.98);
+}
+
+/* Галерея (Слайдер) */
+.project-detail__gallery {
+    position: sticky;
+    top: 120px;
+    width: 100%;
+    min-width: 100%;
+    max-width: 560px;
+    justify-self: stretch;
+    box-sizing: border-box;
+}
+
+.project-detail__slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.project-detail__main-wrapper {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: #1e2d3b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-detail__main-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.gallery-fade-img {
+    opacity: 1;
+    transition: opacity 0.25s ease-in-out;
+}
+
+/* Кнопки навигации галереи */
+.project-detail__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+    border: none;
+    font-size: 20px;
+    width: 40px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: background-color 0.2s ease;
+}
+
+.project-detail__nav--prev {
+    left: 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.project-detail__nav--next {
+    right: 0;
+    border-radius: 4px 0 0 4px;
+}
+
+/* Превью-миниатюры */
+.project-detail__thumbs {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+}
+
+.project-detail__thumb {
+    flex: 0 0 64px;
+    height: 64px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    background: none;
+    overflow: hidden;
+    transition:
+        border-color 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.project-detail__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.project-detail__thumb.is-active {
+    border-color: #edcd1f;
+}
+
+/* ==========================================================================
+   2. Уникальный шаблон для 9-го объекта (Реализованные проекты)
+   ========================================================================== */
+
+.project-detail__completed-list {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.completed-item {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.completed-item__text {
+    flex: 1;
+    font-size: 16px;
+    line-height: 1.65;
+    color: #333333;
+    white-space: pre-line;
+}
+
+.completed-item__image-wrapper {
+    flex: 1.2;
+    width: 100%;
+    height: 320px; /* Фиксированная высота для одинакового размера всех картинок */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background-color: #f0f0f0;
+}
+
+.completed-item__image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Обрезает картинки под единую высоту без искажения пропорций */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* ==========================================================================
+   3. Media Queries (Адаптивность)
+   ========================================================================== */
+
+/* Планшеты и ПК без сенсора (ховеры) */
+@media (hover: hover) and (pointer: fine) {
+    .project-detail__back-btn:hover {
+        background-color: #edcd1f;
+        color: #1e2d3b;
+    }
+
+    .project-detail__nav:hover {
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    .project-detail__thumb:not(.is-active):hover {
+        opacity: 0.8;
+    }
+
+    .completed-item__image-wrapper:hover img {
+        transform: scale(1.03);
+    }
+}
+
+/* Планшеты (≤ 992px) */
+@media (max-width: 992px) {
+    .project-detail__grid {
+        gap: 24px;
+    }
+
+    .project-detail__gallery {
+        position: static;
+    }
+}
+
+/* Мобильные устройства (≤ 768px) */
+@media (max-width: 768px) {
+    .project-detail {
+        padding: 20px 0 40px;
+        overflow-x: hidden;
+    }
+
+    /* Сетка 1-8 объектов */
+    .project-detail__grid {
+        grid-template-columns: 100%;
+        gap: 20px;
+    }
+
+    .project-detail__gallery {
+        order: -1;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .project-detail__main-wrapper {
+        aspect-ratio: 16 / 9;
+        max-height: 260px;
+    }
+
+    .project-detail__info {
+        order: 1;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .project-detail__text p {
+        word-break: break-word;
+    }
+
+    .project-detail__nav {
+        width: 32px;
+        height: 38px;
+        font-size: 14px;
+    }
+
+    .project-detail__thumb {
+        flex: 0 0 48px;
+        height: 48px;
+    }
+
+    .project-detail__back-btn {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* 9-й объект на мобилках: всегда текст сверху, картинка снизу */
+    .completed-item,
+    .completed-item:nth-child(even) {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .completed-item__image-wrapper {
+        height: 240px; /* Чуть компактнее на маленьких экранах */
+    }
+}

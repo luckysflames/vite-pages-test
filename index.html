@@ -2,40 +2,40 @@
 <html lang="ru">
     <head>
         <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Тест Автодеплоя Cloudflare Pages</title>
-        <style>
-            body {
-                font-family:
-                    system-ui,
-                    -apple-system,
-                    sans-serif;
-                background: #0f172a;
-                color: #f8fafc;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
-                margin: 0;
-            }
-            h1 {
-                color: #f97316;
-                font-size: 2.2rem;
-                text-align: center;
-            }
-            .badge {
-                background: #0284c7;
-                color: #ffffff;
-                padding: 10px 20px;
-                border-radius: 9999px;
-                font-weight: 600;
-                box-shadow: 0 4px 14px 0 rgba(2, 132, 199, 0.39);
-            }
-        </style>
+        <title>Строительная компания РСК</title>
     </head>
     <body>
-        <h1>⚡ Прослойка Cloudflare Pages сработала!</h1>
-        <p class="badge">Автодеплой через Private GitHub + Cloudflare запущен</p>
+        <!-- Шапка сайта -->
+        <load src="/src/components/header/header.html" />
+
+        <main>
+            <!-- Hero-секция -->
+            <load src="/src/components/hero/hero.html" />
+
+            <!-- Секция О нас -->
+            <load src="/src/components/about/about.html" />
+
+            <!-- Секция статистики -->
+            <load src="/src/components/stats/stats.html" />
+
+            <!-- Секция Услуги -->
+            <load src="/src/components/services/services.html" />
+
+            <!-- Секция Клиенты -->
+            <load src="/src/components/clients/clients.html" />
+
+            <!-- Секция Проекты -->
+            <load src="/src/components/projects/projects.html" />
+
+            <!-- Секция Контакты -->
+            <load src="/src/components/contacts/contacts.html" />
+        </main>
+
+        <!-- Подвал сайта -->
+        <load src="/src/components/footer/footer.html" />
+
+        <script type="module" src="/src/main.js"></script>
     </body>
 </html>
