@@ -2,48 +2,55 @@
 <html lang="ru">
     <head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Строительная компания РСК</title>
     </head>
     <body>
         <!-- Шапка сайта -->
-        <load src="/src/components/header/header.html" />
+        <load src="./src/components/header/header.html" />
 
         <main>
             <!-- СКВОЗНОЙ ФОНОВОЙ ВИДЕОБЛОК -->
             <div class="global-video-bg" aria-hidden="true">
-                <video class="global-video-bg__element" autoplay muted loop playsinline>
-                    <source src="/video/hero.mp4" type="video/mp4" />
+                <video
+                    class="global-video-bg__element"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    poster="./images/heroPoster.jpg"
+                >
+                    <source src="./video/hero.mp4" type="video/mp4" />
                 </video>
                 <div class="global-video-bg__overlay"></div>
             </div>
 
             <!-- Hero-секция -->
-            <load src="/src/components/hero/hero.html" />
+            <load src="./src/components/hero/hero.html" />
 
             <!-- Секция О нас -->
-            <load src="/src/components/about/about.html" />
+            <load src="./src/components/about/about.html" />
 
             <!-- Секция статистики -->
-            <load src="/src/components/stats/stats.html" />
+            <load src="./src/components/stats/stats.html" />
 
             <!-- Секция Услуги -->
-            <load src="/src/components/services/services.html" />
+            <load src="./src/components/services/services.html" />
 
             <!-- Секция Клиенты -->
-            <load src="/src/components/clients/clients.html" />
+            <load src="./src/components/clients/clients.html" />
 
             <!-- Секция Проекты -->
-            <load src="/src/components/projects/projects.html" />
+            <load src="./src/components/projects/projects.html" />
 
             <!-- Секция Контакты -->
-            <load src="/src/components/contacts/contacts.html" />
+            <load src="./src/components/contacts/contacts.html" />
         </main>
 
         <!-- Подвал сайта -->
-        <load src="/src/components/footer/footer.html" />
+        <load src="./src/components/footer/footer.html" />
 
-        <script type="module" src="/src/main.js"></script>
+        <script type="module" src="./src/main.js"></script>
     </body>
 </html>

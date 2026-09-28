@@ -28,15 +28,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 export function initScrollSpy() {
-    const path = window.location.pathname;
     const navLinks = document.querySelectorAll(".header__link");
 
-    // 1. Защита для подстраниц: если мы не на главной, полностью убираем все активные подсветки
-    if (path !== "/" && path !== "/index.html" && path !== "") {
+    if (!document.getElementById("hero")) {
         navLinks.forEach((link) => {
             link.classList.remove("header__link--active");
         });
-        return; // Выходим, дальше логика главной страницы не нужна
+        return;
     }
 
     // 2. Логика для главной страницы
@@ -64,11 +62,8 @@ export function initScrollSpy() {
         if (currentActiveId) {
             navLinks.forEach((link) => {
                 link.classList.remove("header__link--active");
-                const href = link.getAttribute("href");
-                if (
-                    href === `/#${currentActiveId}` ||
-                    (currentActiveId === "hero" && (href === "/" || href === "/#hero"))
-                ) {
+                const linkUrl = new URL(link.href);
+                if (linkUrl.pathname === window.location.pathname && linkUrl.hash === `#${currentActiveId}`) {
                     link.classList.add("header__link--active");
                 }
             });

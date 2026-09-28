@@ -140,7 +140,7 @@
 @media (max-width: 1200px) {
     .header__logo-wrapper {
         min-width: 280px;
-        padding-right: 40px;
+        padding-right: 60px;
     }
     .header__container {
         padding-right: 30px;
@@ -156,7 +156,7 @@
     }
     .header__logo-wrapper {
         min-width: 220px;
-        padding-right: 20px;
+        padding-right: 40px;
     }
     .header__logo img {
         height: 65px;

@@ -8,13 +8,13 @@ export function initProjects() {
         .map(
             (project) => `
         <article class="project-card">
-            <a href="/project.html?id=${project.id}" class="project-card__image-wrapper" aria-label="Подробнее о проекте ${project.title}">
+            <a href="./project.html?id=${project.id}" class="project-card__image-wrapper" aria-label="Подробнее о проекте ${project.title}">
                 <div class="project-card__badges">
                     <span class="project-card__year">${project.year}</span>
                     <span class="project-card__status">${project.status}</span>
                 </div>
                 <img
-                    src="${project.image}"
+                    src="./${project.image}"
                     alt="${project.title} ${project.location ? `(${project.location})` : ""}"
                     class="project-card__image"
                     loading="lazy"
@@ -26,7 +26,7 @@ export function initProjects() {
                     ${project.location ? `<span class="project-card__location">${project.location}</span>` : ""}
                 </h3>
 
-                <a href="/project.html?id=${project.id}" class="project-card__btn">
+                <a href="./project.html?id=${project.id}" class="project-card__btn">
                     <span>Подробнее</span>
                 </a>
             </div>
